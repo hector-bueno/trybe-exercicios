@@ -27,29 +27,34 @@ O último cálculo para conseguir o salário líquido é R$ 2.670,00 - R$ 57,45 
 Resultado: R$ 2.612,55.
 Dica: que tal identificar as alíquotas com variáveis de nomes explicativos? */
 
-const salarioBruto = 2000;
+const salarioBruto = 3000;
+let inss = 0;
+let impRenda = 0;
+let salarioLiquido = 0;
 
-const inss = () => {
-    if (salarioBruto <= 1556.94) {
-        return salarioBruto * 0.08;
-    } else if (salarioBruto <= 2594.92) {
-        return salarioBruto * 0.09;
-    } else if (salarioBruto <= 5189.82) {
-        return salarioBruto * 0.11;
-    } else {
-        return 570.88;
-    }
+if (salarioBruto <= 1556.94) {
+    inss = salarioBruto * 0.08;
+} else if (salarioBruto <= 2594.92) {
+    inss = salarioBruto * 0.09;
+} else if (salarioBruto <= 5189.82) {
+    inss = salarioBruto * 0.11;
+} else {
+    inss = 570.88;
 }
 
-const impRenda = () => {
-    if (salarioBruto <= 1903.98) {
-        return 0;
-    } else if (salarioBruto <= 2826.65) {
-        return salarioBruto * 0.09;
-    } else if (salarioBruto <= 5189.82) {
-        return salarioBruto * 0.11;
-    } else {
-        return 570.88;
-    }
+const salarioBase = salarioBruto - inss;
+
+if (salarioBase <= 1903.98) {
+    impRenda = 0;
+} else if (salarioBase <= 2826.65) {
+    impRenda = (0.075 * salarioBase) - 142.80;
+} else if (salarioBase <= 3751.05) {
+    impRenda = (0.15 * salarioBase) - 354.80;
+} else if (salarioBase <= 4664.68) {
+    impRenda = (0.225 * salarioBase) - 636.13;
+} else {
+    impRenda = (0.275 * salarioBase) - 869.36;
 }
 
+salarioLiquido = salarioBase - impRenda;
+console.log(salarioLiquido);
